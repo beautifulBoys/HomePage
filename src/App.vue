@@ -11,8 +11,9 @@
               <span class="title">网站首页</span>
               <span class="english">Home</span>
             </div>
-            <div class="a" v-for="(item, index) in menuList" :class="{active: index + 1 === menuIndex}"
-                 @click="menuEvent(index + 1)">
+            <div class="a" v-for="(item, index) in menuList"
+              :class="{active: index + 1 === menuIndex}"
+              @click="menuEvent(index + 1)" :key="index">
               <span class="title">{{ item.text }}</span>
               <span class="english">{{ item.english }}</span>
             </div>
@@ -30,12 +31,14 @@
         <div class="swiper-pagination"></div>
       </div>
     </div>
-    <div class="kuai-box" :id="index1 + 1" v-for="(listItem, index1) in menuList" :class="{bgfff: index1 % 2 === 1}">
+    <div class="kuai-box" :id="index1 + 1" v-for="(listItem, index1) in menuList"
+      :class="{bgfff: index1 % 2 === 1}" :key="index1">
       <div class="kuai-main">
         <h3>{{ listItem.text }}</h3>
         <div class="desc">{{ listItem.desc }}</div>
         <div class="list">
-          <div class="item" @click="location(item)" v-for="(item, index2) in listItem.items" :class="{nom: (index2 + 1) % 3 === 0}">
+          <div class="item" @click="location(item)" v-for="(item, index2) in listItem.items"
+            :class="{nom: (index2 + 1) % 3 === 0}" :key="index2">
             <div class="shadow"></div>
             <div class="img-box">
               <img :src="item.img" :class="{img: index1 === 1}"/>
@@ -49,8 +52,8 @@
                 <span class="time">{{ item.time }}</span>
                 <p :class="{height: index1 === 0}" :title="item.content">{{ item.content }}</p>
                 <div class="button" v-if="index1 === 0">
-                  <div class="btn" @click="officeSitEvent(item, false)">查看[官网]</div>
-                  <div class="btn" @click="officeSitEvent(item, true)">查看[模仿]</div>
+                  <div class="btn" @click="officeSitEvent(item, false)">{{item.site.official.btnText}}</div>
+                  <div class="btn" @click="officeSitEvent(item, true)">{{item.site.model.btnText}}</div>
                 </div>
               </div>
             </div>
@@ -67,12 +70,11 @@
 </template>
 
 <script>
-  // import data from '../data.json';
+  import data from './data1.js';
   export default {
     name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
         isFixed: false,
         menuIndex: 0,
         menuList: [],
